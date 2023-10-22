@@ -7,3 +7,9 @@ class StudentSerializer(serializers.Serializer):
     city=serializers.CharField(max_length=70)
     def create(self, validated_data):
         return Student.objects.create(**validated_data)
+    def update(self,instance,validated_data):                 #instance-old data that is already present,validated_data-that is coming from user which will be updated
+        instance.name=validated_data.get('name',instance.name)
+        instance.roll=validated_data.get('roll',instance.roll)
+        instance.city=validated_data.get('city',instance.city)
+        instance.save()
+        return instance
